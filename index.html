@@ -213,32 +213,36 @@ const frameCount = 240;
 const canvas = document.getElementById("animationCanvas");
 const context = canvas.getContext("2d");
 
-function setCanvasSize() {
+// Make canvas full screen
+function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 }
-setCanvasSize();
+resizeCanvas();
 
-const currentFrame = index =>
-    `frame/ezgif-frame-${String(index).padStart(3, '0')}.jpg`;
+// Correct path to your images
+function currentFrame(index) {
+    return `./frame/ezgif-frame-${String(index).padStart(3, '0')}.jpg`;
+}
 
 const images = [];
-let imagesLoaded = 0;
+let loadedImages = 0;
 
+// Preload images
 for (let i = 1; i <= frameCount; i++) {
     const img = new Image();
     img.src = currentFrame(i);
     img.onload = () => {
-        imagesLoaded++;
-        if (imagesLoaded === 1) {
-            // draw first frame immediately
+        loadedImages++;
+        if (loadedImages === 1) {
             context.drawImage(img, 0, 0, canvas.width, canvas.height);
         }
     };
     images.push(img);
 }
 
-function drawImage(index) {
+// Draw frame based on scroll
+function updateImage(index) {
     if (images[index]) {
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.drawImage(images[index], 0, 0, canvas.width, canvas.height);
@@ -247,23 +251,22 @@ function drawImage(index) {
 
 window.addEventListener("scroll", () => {
     const scrollTop = document.documentElement.scrollTop;
-    const maxScrollTop =
+    const maxScroll =
         document.documentElement.scrollHeight - window.innerHeight;
 
-    const scrollFraction = scrollTop / maxScrollTop;
+    const scrollFraction = scrollTop / maxScroll;
     const frameIndex = Math.min(
         frameCount - 1,
         Math.floor(scrollFraction * frameCount)
     );
 
-    requestAnimationFrame(() => drawImage(frameIndex));
+    requestAnimationFrame(() => updateImage(frameIndex));
 });
 
 window.addEventListener("resize", () => {
-    setCanvasSize();
-    drawImage(0);
+    resizeCanvas();
+    updateImage(0);
 });
 </script>
-
 </body>
 </html>
