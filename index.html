@@ -5,131 +5,113 @@
     <title>Ashiha S V | Portfolio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        scroll-behavior: smooth;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+   <style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', sans-serif;
+}
 
-    body {
-        background: transparent;
-        color: #111;
-        overflow-x: hidden;
-    }
+body{
+    background:transparent;
+    color:white;
+    overflow-x:hidden;
+}
 
-    /* ===== Scroll Animation Canvas ===== */
-    #animationCanvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -2;
-        opacity: 0.12; /* slightly visible watermark */
-    }
+/* Background animation */
+#animationCanvas{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+    opacity:0.35;   /* adjust visibility here */
+}
 
-    /* Light blur layer (NOT white) */
-    .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        backdrop-filter: blur(2px);
-        background: rgba(255,255,255,0.05); /* almost invisible */
-        z-index: -1;
-    }
+/* Header */
+header{
+    text-align:center;
+    padding:100px 20px 60px 20px;
+}
 
-    header {
-        text-align: center;
-        padding: 80px 20px 40px 20px;
-    }
+header h1{
+    font-size:48px;
+    letter-spacing:2px;
+}
 
-    header h1 {
-        font-size: 42px;
-        letter-spacing: 2px;
-    }
+header p{
+    margin-top:10px;
+    font-size:18px;
+}
 
-    header p {
-        margin-top: 10px;
-        font-size: 18px;
-    }
+header a{
+    color:#00bfff;
+    text-decoration:none;
+}
 
-    header a {
-        color: #004aad;
-        text-decoration: none;
-        font-weight: 500;
-    }
+/* Sections */
+section{
+    max-width:900px;
+    margin:100px auto;
+    padding:0 20px;
+}
 
-    section {
-        max-width: 900px;
-        margin: 80px auto;
-        padding: 0 20px;
-    }
+h2{
+    font-size:30px;
+    margin-bottom:20px;
+    border-left:4px solid #00bfff;
+    padding-left:12px;
+}
 
-    h2 {
-        font-size: 28px;
-        margin-bottom: 20px;
-        border-left: 4px solid #004aad;
-        padding-left: 12px;
-    }
+/* REMOVE ALL WHITE CONTAINERS */
+.card{
+    background:transparent;
+    padding:0;
+    box-shadow:none;
+    border:none;
+}
 
-    /* REMOVE WHITE CARDS */
-    .card {
-        background: transparent;
-        backdrop-filter: none;
-        padding: 10px 0;
-        border-radius: 0;
-        box-shadow: none;
-    }
+/* Lists */
+ul{
+    list-style:none;
+}
 
-    ul {
-        list-style: none;
-        padding-left: 10px;
-    }
+ul li{
+    margin-bottom:10px;
+    position:relative;
+    padding-left:18px;
+}
 
-    ul li {
-        margin-bottom: 10px;
-        position: relative;
-        padding-left: 18px;
-    }
+ul li::before{
+    content:"•";
+    position:absolute;
+    left:0;
+    color:#00bfff;
+}
 
-    ul li::before {
-        content: "•";
-        position: absolute;
-        left: 0;
-        color: #004aad;
-    }
+/* Skills */
+.skills-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:15px;
+}
 
-    .skills-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 15px;
-    }
+.skill{
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.4);
+    padding:10px;
+    text-align:center;
+    border-radius:6px;
+}
 
-    .skill {
-        background: transparent;
-        border: 1px solid rgba(0,0,0,0.15);
-        padding: 10px 15px;
-        border-radius: 6px;
-        text-align: center;
-        font-weight: 500;
-    }
-
-    footer {
-        text-align: center;
-        padding: 40px;
-        font-size: 14px;
-    }
-
-    @media (max-width: 600px) {
-        header h1 {
-            font-size: 30px;
-        }
-    }
+/* Footer */
+footer{
+    text-align:center;
+    padding:60px 20px;
+    font-size:14px;
+}
 </style>
 </head>
 
