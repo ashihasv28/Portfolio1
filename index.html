@@ -208,47 +208,61 @@
 <footer>
     © 2026 Ashiha S V | Portfolio Website
 </footer>
-
 <script>
-    const frameCount = 240;
-    const canvas = document.getElementById("animationCanvas");
-    const context = canvas.getContext("2d");
+const frameCount = 240;
+const canvas = document.getElementById("animationCanvas");
+const context = canvas.getContext("2d");
 
+function setCanvasSize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+}
+setCanvasSize();
 
-    const currentFrame = index => 
-        `frame/ezgif-frame-${String(index).padStart(3, '0')}.jpg`;
+const currentFrame = index =>
+    `frame/ezgif-frame-${String(index).padStart(3, '0')}.jpg`;
 
-    const images = [];
+const images = [];
+let imagesLoaded = 0;
+
+for (let i = 1; i <= frameCount; i++) {
     const img = new Image();
+    img.src = currentFrame(i);
+    img.onload = () => {
+        imagesLoaded++;
+        if (imagesLoaded === 1) {
+            // draw first frame immediately
+            context.drawImage(img, 0, 0, canvas.width, canvas.height);
+        }
+    };
+    images.push(img);
+}
 
-    for (let i = 1; i <= frameCount; i++) {
-        const image = new Image();
-        image.src = currentFrame(i);
-        images.push(image);
-    }
-
-    function drawImage(index) {
+function drawImage(index) {
+    if (images[index]) {
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.drawImage(images[index], 0, 0, canvas.width, canvas.height);
     }
+}
 
-    window.addEventListener("scroll", () => {
-        const scrollTop = document.documentElement.scrollTop;
-        const maxScrollTop = document.documentElement.scrollHeight - window.innerHeight;
-        const scrollFraction = scrollTop / maxScrollTop;
-        const frameIndex = Math.min(
-            frameCount - 1,
-            Math.ceil(scrollFraction * frameCount)
-        );
-        requestAnimationFrame(() => drawImage(frameIndex));
-    });
+window.addEventListener("scroll", () => {
+    const scrollTop = document.documentElement.scrollTop;
+    const maxScrollTop =
+        document.documentElement.scrollHeight - window.innerHeight;
 
-    window.addEventListener("resize", () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    });
+    const scrollFraction = scrollTop / maxScrollTop;
+    const frameIndex = Math.min(
+        frameCount - 1,
+        Math.floor(scrollFraction * frameCount)
+    );
+
+    requestAnimationFrame(() => drawImage(frameIndex));
+});
+
+window.addEventListener("resize", () => {
+    setCanvasSize();
+    drawImage(0);
+});
 </script>
 
 </body>
